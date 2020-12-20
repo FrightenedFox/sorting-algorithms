@@ -7,12 +7,13 @@ def ReadInputFile(path, separator = None):
 		Return -3 if any other error appeared.
 
 		The separator can be changed, if numbers in the input file are separated with a special symbol
-		(for ex. separator = ","; default: separator = " ").'''	
+		(for ex. separator = "_"; default: separator = " ").'''	
 	#".\\tests\\initial_test.txt"
 	try:
 		lists, err_count = [], 0		# Defining the output list and the variable to count misunderstood numbers
 		with open(path,mode='r') as file:	# Opens the input file and reads it line by line
 			for line in file:
+				line = line.replace(",", "").replace(";", "")
 				this_sequence = []
 				for word in line.strip().split(separator):	# Cutting the sequence with the respect to the separator
 					try:
@@ -32,7 +33,7 @@ def ReadInputFile(path, separator = None):
 
 
 
-def PrepareOutputFile(path):
+def PrepareFile(path):
 	''' Cleaning (or creating) the file in the given path '''
 
 	with open(path,mode='w', encoding='utf-8') as file:		
@@ -40,10 +41,12 @@ def PrepareOutputFile(path):
 
 
 
-def AppendOutputFile(path, out_list, label=None):
+def AppendFile(path, out_list, label=None, end='\n\n'):
 	''' Adds the list out_list to the end of the file in the given path. 
 
-		If label is given then the output will be labeled.'''
+		If label is given then the output will be labeled.
+
+		The ending of each output can be modified by "end" parameter.'''
 
 	with open(path,mode='a', encoding='utf-8') as file:
 		if label:
@@ -51,4 +54,4 @@ def AppendOutputFile(path, out_list, label=None):
 				file.write('Sequence #'+str(label)+':\n')
 			else:
 				file.write('Sequence \''+str(label)+'\':\n')
-		file.write(str(out_list)[1:-1]+'\n\n')
+		file.write(str(out_list)[1:-1]+end)
