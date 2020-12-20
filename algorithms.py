@@ -76,6 +76,7 @@ def BinaryHeapSort(mylist, reverse = False):
 	return sort_list
 
 
+
 def MakeHeap(mylist):
 	''' Create the binary heap from the given list and return it.'''
 
@@ -95,10 +96,48 @@ def MakeHeap(mylist):
 			else:
 				break 	# If parent is greater then child then the heap is created
 	return mylist
-
-				
-
+	
+"""
 a = [3,4, 13, 23, 12, 35,43,2,5,432,6,32,323,7, -14, -23]
 #print(MakeHeap(a))
 print(SelectionSort(a.copy()))
 print(BinaryHeapSort(a.copy()))
+"""
+
+def ReadInputFile(path, separator = None):
+	''' Return the list of the sequences of the integers from the file in the given path and number of misunderstood 
+		words. All float numbers are floored (i.e. rounded to the closest smaller integer).
+		
+		Return -1 and number of misunderstood words if the file was empty or there was not a single number in the file.
+		Return -2 if file was not found.
+		Return -3 if any other error appeared.
+
+		The separator can be changed, if numbers in the input file are separated with a special symbol
+		(for ex. separator = ","; default: separator = " ").'''
+
+	try:
+		lists, err_count = [], 0		# Defining the output list and the variable to count misunderstood numbers
+		with open(path,'r') as file:	# Opens the input file and reads it line by line
+			for line in file:
+				this_sequence = []
+				for word in line.strip().split(separator):	# Cutting the sequence with the respect to the separator
+					try:
+						this_sequence.append(int(word))
+					except ValueError:
+						err_count += 1
+				if this_sequence != []:
+					lists.append(this_sequence)
+		if lists != []:
+			return lists, err_count
+		else:
+			return -1, err_count 	# File is empty, number of missed numbers/words
+	except FileNotFoundError:
+		return -2					# File is not found
+	except:
+		return -3					# Something else went wrong
+"""
+print(ReadInputFile(".\\tests\\initial_test.txt"))
+
+for i in ReadInputFile(".\\tests\\initial_test.txt")[0]:
+	print(SelectionSort(i))
+"""
