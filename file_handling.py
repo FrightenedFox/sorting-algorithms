@@ -49,9 +49,8 @@ def AppendFile(path, out_list, label=None, end='\n\n'):
 		The ending of each output can be modified by "end" parameter.'''
 
 	with open(path,mode='a', encoding='utf-8') as file:
-		if label:
-			if type(label)==int:
-				file.write('Sequence #'+str(label)+':\n')
-			else:
-				file.write('Sequence \''+str(label)+'\':\n')
+		if type(label)==int:
+			file.write('Sequence #'+str(label)+':\n')
+		elif type(label)==str:
+			file.write('Sequence \''+str(label)+'\':\n')
 		file.write(str(out_list)[1:-1]+end)
