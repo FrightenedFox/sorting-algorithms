@@ -1,3 +1,5 @@
+from math import floor 		# Importing function floor() from the math module
+
 def SelectionSort(mylist, reverse = False):
 	''' Sort the list in ascending order and return it.
 
@@ -26,6 +28,7 @@ def SelectionSort(mylist, reverse = False):
 
 		# Swapping the first element of the unsorted part of the list with the smallest element in the same part
 		mylist[i], mylist[p_index] = mylist[p_index], mylist[i]
+
 	return mylist
 
 
@@ -33,67 +36,68 @@ def SelectionSort(mylist, reverse = False):
 def BinaryHeapSort(mylist, reverse = False):
 	''' Sort the list in ascending order and return it.
 
-		The sort is not in-place (i.e. the copy of the input list is created) 
-		and not stable (i.e. the order of two equal elements is not maintained).
+		The sort in-place (i.e. the list itself is modified) and not stable (i.e. the order of two equal 
+		elements is not maintained).
 
 		The reverse flag can be set to sort in descending order.'''
 
 	# Creating a heap from the list
 	MakeHeap(mylist)
-	
-	sort_list = []			# variable for the sorted list
+
 	length = len(mylist)
+	for i in range(len(mylist)):
+	
+		# Replacing the first element with the last one 
+		if length>1:
+			mylist[0], mylist[length-1] = mylist[length-1], mylist[0]
 
-	for i in range(length):
+		# Shrink the length of the list
+		length -= 1
 
-		# Adding the first (the greatest) element of the heap to the beginning or end of the output list
-		if reverse:
-			sort_list.append(mylist[0])
-		else:
-			sort_list.insert(0, mylist[0])
+		# Restoring the rule of the heap
+		Heapify(mylist,length)
 
-		# Replacing the first element with the last one and deleting the last element 
-		if len(mylist)>1:
-			mylist[0]=mylist.pop()
+	# Reversing the list if an appropriate flag is set
+	if reverse:
+		for index in range(floor(len(mylist)/2)):
+			mylist[index], mylist[-index-1] = mylist[-index-1], mylist[index]
 
-		# Looking through the heap
-		j = 0
-		while j*2+1<len(mylist):
-			
-			# Finding the biggest child of the current parent
-			if j*2+2<len(mylist) and mylist[j*2+1] < mylist[j*2+2]:
-				greater_child_ind = j*2+2
-			else:
-				greater_child_ind = j*2+1
-
-			# Repairing the heap if the greatest child is greater than it's parent
-			if mylist[j]<mylist[greater_child_ind]:
-				mylist[j], mylist[greater_child_ind] = mylist[greater_child_ind], mylist[j]
-				j = greater_child_ind
-			else:
-				break
-	# Deleting the input list
-	del mylist
-	return sort_list
+	return mylist
 
 
 
 def MakeHeap(mylist):
 	''' Create the binary heap from the given list and return it.'''
 
-	from math import floor 		# Importing function floor() from the math module
+	length = len(mylist)
+	for ind in range(length-2, -1, -1):
+		Heapify(mylist, length, ind)
 
-	# Going through the list, starting from the second element
-	for el_index in range(1,len(mylist)):
-		i = el_index	# el_index - the copy of the "i" variable, not to overwrite it in the following manipulations
+	return mylist
 
-		while i>0:
-			new_i = floor((i-1)/2)		# Index of the parent of the element with the index "i"
 
-			# If the parent of the current element with the index "i" is smaller than that element, than swap them 
-			if mylist[i]>mylist[new_i]:
-				mylist[i], mylist[new_i] = mylist[new_i], mylist[i]
-				i = new_i
-			else:
-				break 	# If parent is greater then child then the heap is created
+
+def Heapify(mylist, length, j=0):
+	''' Restore the rule of the Heap from the perspective of the given index.
+	(i.e. checks if children of the index are in the right order) '''
+
+	# Looking through the heap
+	while j*2+1<length:
+		
+		# Indexes of the children
+		ch1, ch2 = j*2+1, j*2+2
+
+		# Finding the biggest child of the current parent
+		if ch2<length and mylist[ch1] < mylist[ch2]:
+			greater_child_ind = ch2
+		else:
+			greater_child_ind = ch1
+
+		# Repairing the heap if the greatest child is greater than it's parent
+		if mylist[j]<mylist[greater_child_ind]:
+			mylist[j], mylist[greater_child_ind] = mylist[greater_child_ind], mylist[j]
+			j = greater_child_ind
+		else:
+			break
+
 	return mylist
