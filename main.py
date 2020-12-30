@@ -57,17 +57,13 @@ def Sort(path_in, path_out, algorithm = 's',
 
 
 
-def main():
+def demonstrate(generate_data = False):
 	''' Implementation of all functions and showing the graph of the results. In other words - examples.'''
 	# path=".\\tests\\test.txt"
 
-	# Initial test
-	Sort('.\\tests\\initial_test.txt', '.\\tests\\initial_result.txt', algorithm = 'S', 
-		captions = True, progress_bar = False)
-
 	# Creating an input file for the test
-	test.CreateInput(path=".\\tests\\main_test.txt", Nmin = 0, Nmax = 1000, sequences = 100, len_start = 10,
-		len_incr = 10, len_mult = 1, complexity = 0)
+	# test.CreateInput(path=".\\tests\\main_test.txt", Nmin = 0, Nmax = 1000, sequences = 100, len_start = 10,
+	#	len_incr = 10, len_mult = 1, complexity = 0)
 
 	# Creating an numpy array of the times of algorithm working time
 	sel_times = np.array(Sort('.\\tests\\main_test.txt', '.\\tests\\sel_result.txt', algorithm = 'S', captions = False))
@@ -86,14 +82,14 @@ def main():
 	plt.show()
 	plt.close()
 
-	print('\nCreating a new set of data...', flush = True)
+	# print('\nCreating a new set of data...', flush = True)
 
-	test.CreateInput(path=".\\tests\\a_ascending_test.txt", Nmin = 0, Nmax = 50000, sequences = 100, 
-		len_start = 10000, len_incr = 0, len_mult = 1, complexity = -1, distrib = 10, dist_incr = 0, dist_mult = 1)
-	test.CreateInput(path=".\\tests\\f_random_test.txt", 	Nmin = 0, Nmax = 50000, sequences = 100, 
-		len_start = 10000, len_incr = 0, len_mult = 1, complexity =  0, distrib = 10, dist_incr = 0, dist_mult = 1)
-	test.CreateInput(path=".\\tests\\a_descending_test.txt",Nmin = 0, Nmax = 50000, sequences = 100, 
-		len_start = 10000, len_incr = 0, len_mult = 1, complexity =  1, distrib = 10, dist_incr = 0, dist_mult = 1)
+	# test.CreateInput(path=".\\tests\\a_ascending_test.txt", Nmin = 0, Nmax = 50000, sequences = 100, 
+	# 	len_start = 10000, len_incr = 0, len_mult = 1, complexity = -1, distrib = 10, dist_incr = 0, dist_mult = 1)
+	# test.CreateInput(path=".\\tests\\f_random_test.txt", 	Nmin = 0, Nmax = 50000, sequences = 100, 
+	# 	len_start = 10000, len_incr = 0, len_mult = 1, complexity =  0, distrib = 10, dist_incr = 0, dist_mult = 1)
+	# test.CreateInput(path=".\\tests\\a_descending_test.txt",Nmin = 0, Nmax = 50000, sequences = 100, 
+	# 	len_start = 10000, len_incr = 0, len_mult = 1, complexity =  1, distrib = 10, dist_incr = 0, dist_mult = 1)
 
 	heap_times_m1 = np.array(Sort('.\\tests\\a_ascending_test.txt','.\\tests\\a_ascending_result.txt',
 		algorithm = 'H', captions = False))
@@ -113,6 +109,16 @@ def main():
 	plt.show()
 
 
+
+def main():
+	''' Main function '''
+
+	# Initial test
+	Sort('.\\tests\\initial_test.txt', '.\\tests\\initial_result.txt', algorithm = 'S', 
+		captions = True, progress_bar = False)
+
+	# The most important tests are stored in the demonstrate() function
+	demonstrate()
 
 if __name__ == "__main__":
     main()

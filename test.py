@@ -66,5 +66,5 @@ def CreateSpecialSequence(start=0, stop=None, length=None, distrib=None):
 
 	# adding a random element from the range 'distribution'
 	for i in range(begin, end, direction):
-		sequence.append(random.randint(min_point+int(i*coef), min_point+int(i*coef)+distrib))
+		sequence.append(random.randint(min_point+int(i*coef), min_point+int(i*coef)+int(distrib)))
 	return sequence
