@@ -30,14 +30,16 @@ def Sort(path_in, path_out, algorithm = 's',
 
 	counter = 0
 	for sequence in sequences:
-		start_time = time()
 
 		if algorithm.lower() == 's':
+			start_time = time()
 			array = alg.SelectionSort(sequence)
+			end_time = time()
 		elif algorithm.lower() == 'h':
+			start_time = time()
 			array = alg.BinaryHeapSort(sequence)
+			end_time = time()
 
-		end_time = time()
 		times += [round(end_time-start_time, 4)]
 
 		if captions:
@@ -82,14 +84,25 @@ def demonstrate(generate_data = False):
 	plt.show()
 	plt.close()
 
-	# print('\nCreating a new set of data...', flush = True)
+	n = 25
+	s_len = 50000
+	s_len_2 = int(s_len/10)
+	x = np.linspace(0, n, n)
+	print('\nCreating a new set of data...', flush = True)
 
-	# test.CreateInput(path=".\\tests\\a_ascending_test.txt", Nmin = 0, Nmax = 50000, sequences = 100, 
-	# 	len_start = 10000, len_incr = 0, len_mult = 1, complexity = -1, distrib = 10, dist_incr = 0, dist_mult = 1)
-	# test.CreateInput(path=".\\tests\\f_random_test.txt", 	Nmin = 0, Nmax = 50000, sequences = 100, 
-	# 	len_start = 10000, len_incr = 0, len_mult = 1, complexity =  0, distrib = 10, dist_incr = 0, dist_mult = 1)
-	# test.CreateInput(path=".\\tests\\a_descending_test.txt",Nmin = 0, Nmax = 50000, sequences = 100, 
-	# 	len_start = 10000, len_incr = 0, len_mult = 1, complexity =  1, distrib = 10, dist_incr = 0, dist_mult = 1)
+	test.CreateInput(path=".\\tests\\a_ascending_test.txt", Nmin = 0, Nmax = s_len*5, sequences = n, 
+		len_start = s_len, len_incr = 0, len_mult = 1, complexity = -1, distrib = 10, dist_incr = 0, dist_mult = 1)
+	test.CreateInput(path=".\\tests\\f_random_test.txt", 	Nmin = 0, Nmax = s_len*5, sequences = n, 
+		len_start = s_len, len_incr = 0, len_mult = 1, complexity =  0, distrib = 10, dist_incr = 0, dist_mult = 1)
+	test.CreateInput(path=".\\tests\\a_descending_test.txt",Nmin = 0, Nmax = s_len*5, sequences = n, 
+		len_start = s_len, len_incr = 0, len_mult = 1, complexity =  1, distrib = 10, dist_incr = 0, dist_mult = 1)
+
+	test.CreateInput(path=".\\tests\\sel_a_asc_test.txt",  Nmin = 0, Nmax = s_len_2*5, sequences = n, 
+		len_start = s_len_2, len_incr = 0, len_mult = 1, complexity = -1, distrib = 10, dist_incr = 0, dist_mult = 1)
+	test.CreateInput(path=".\\tests\\sel_f_rand_test.txt", Nmin = 0, Nmax = s_len_2*5, sequences = n, 
+		len_start = s_len_2, len_incr = 0, len_mult = 1, complexity =  0, distrib = 10, dist_incr = 0, dist_mult = 1)
+	test.CreateInput(path=".\\tests\\sel_a_desc_test.txt", Nmin = 0, Nmax = s_len_2*5, sequences = n, 
+		len_start = s_len_2, len_incr = 0, len_mult = 1, complexity =  1, distrib = 10, dist_incr = 0, dist_mult = 1)
 
 	heap_times_m1 = np.array(Sort('.\\tests\\a_ascending_test.txt','.\\tests\\a_ascending_result.txt',
 		algorithm = 'H', captions = False))
@@ -98,13 +111,30 @@ def demonstrate(generate_data = False):
 	heap_times_1 = np.array(Sort('.\\tests\\a_descending_test.txt','.\\tests\\a_descending_result.txt',
 		algorithm = 'H', captions = False))
 
+	sel_times_m1 = np.array(Sort('.\\tests\\sel_a_asc_test.txt','.\\tests\\sel_a_asc_result.txt',
+		algorithm = 'S', captions = False))
+	sel_times_0= np.array(Sort('.\\tests\\sel_f_rand_test.txt','.\\tests\\sel_f_rand_result.txt',
+		algorithm = 'S', captions = False))
+	sel_times_1 = np.array(Sort('.\\tests\\sel_a_desc_test.txt','.\\tests\\sel_a_desc_result.txt',
+		algorithm = 'S', captions = False))
+
 	plt.figure('Inputs comparison')
+
+	plt.subplot(1,2,1)
 	plt.scatter(x, heap_times_m1, s=10, c = 'red',  label = 'almost ascending')
 	plt.scatter(x, heap_times_0, s=10, c = 'green', label = 'fully random')
 	plt.scatter(x, heap_times_1, s=10, c = 'blue', label = 'almost descending')
 	plt.xlabel('Number of test')
 	plt.ylabel('Time, seconds')
-	plt.title('Inputs comparison for Binary Heap sorting algorithm')
+	plt.title('Binary Heap sorting algorithm')
+
+	plt.subplot(1,2,2)
+	plt.scatter(x, sel_times_m1, s=10, c = 'red',  label = 'almost ascending')
+	plt.scatter(x, sel_times_0, s=10, c = 'green', label = 'fully random')
+	plt.scatter(x, sel_times_1, s=10, c = 'blue', label = 'almost descending')
+	plt.xlabel('Number of test')
+	plt.ylabel('Time, seconds')
+	plt.title('Selection sorting algorithm')
 	plt.legend(loc=2)
 	plt.show()
 
