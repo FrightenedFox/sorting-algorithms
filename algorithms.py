@@ -40,11 +40,13 @@ def BinaryHeapSort(mylist, reverse = False):
 		elements is not maintained).
 
 		The reverse flag can be set to sort in descending order.'''
+	
+	length = len(mylist)
 
 	# Creating a heap from the list
-	MakeHeap(mylist)
+	for ind in range(length-2, -1, -1):
+		Heapify(mylist, length, ind)
 
-	length = len(mylist)
 	for i in range(len(mylist)):
 	
 		# Replacing the first element with the last one 
@@ -61,17 +63,6 @@ def BinaryHeapSort(mylist, reverse = False):
 	if reverse:
 		for index in range(floor(len(mylist)/2)):
 			mylist[index], mylist[-index-1] = mylist[-index-1], mylist[index]
-
-	return mylist
-
-
-
-def MakeHeap(mylist):
-	''' Create the binary heap from the given list and return it.'''
-
-	length = len(mylist)
-	for ind in range(length-2, -1, -1):
-		Heapify(mylist, length, ind)
 
 	return mylist
 
