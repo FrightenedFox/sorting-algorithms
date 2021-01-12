@@ -17,7 +17,7 @@ def SelectionSort(mylist, reverse = False):
 		start, stop, step = 0, length, 1
 
 	# Sorting the list from the smallest value to the biggest one 
-	for i in range(start, stop, step):
+	for i in range(start, stop - 1, step):
 		min_prey, p_index= mylist[i], i 		# min_prey - first value of the unsorted part of the list
 												# p_index - index of the min_prey value in the list
 
