@@ -62,11 +62,11 @@ def Sort(path_in, path_out, algorithm = 's',
 def demonstrate(generate_data = False):
 	''' Implementation of all functions and showing the graph of the results. In other words - examples.'''
 	# path=".\\tests\\test.txt"
-
+	"""
 	# Creating an input file for the test
-	# test.CreateInput(path=".\\tests\\main_test.txt", Nmin = 0, Nmax = 1000, sequences = 100, len_start = 10,
-	#	len_incr = 10, len_mult = 1, complexity = 0)
-
+	test.CreateInput(path=".\\tests\\main_test.txt", Nmin = 0, Nmax = 1000, sequences = 100, len_start = 10,
+		len_incr = 10, len_mult = 1, complexity = 0)
+	"""
 	# Creating an numpy array of the times of algorithm working time
 	sel_times = np.array(Sort('.\\tests\\main_test.txt', '.\\tests\\sel_result.txt', algorithm = 'S', captions = False))
 	heap_times = np.array(Sort('.\\tests\\main_test.txt','.\\tests\\heap_result.txt',algorithm = 'H', captions = False))
@@ -84,10 +84,11 @@ def demonstrate(generate_data = False):
 	plt.show()
 	plt.close()
 
-	n = 25
-	s_len = 50000
+	n = 100
+	s_len = 10000
 	s_len_2 = int(s_len/10)
 	x = np.linspace(0, n, n)
+	"""
 	print('\nCreating a new set of data...', flush = True)
 
 	test.CreateInput(path=".\\tests\\a_ascending_test.txt", Nmin = 0, Nmax = s_len*5, sequences = n, 
@@ -103,6 +104,7 @@ def demonstrate(generate_data = False):
 		len_start = s_len_2, len_incr = 0, len_mult = 1, complexity =  0, distrib = 10, dist_incr = 0, dist_mult = 1)
 	test.CreateInput(path=".\\tests\\sel_a_desc_test.txt", Nmin = 0, Nmax = s_len_2*5, sequences = n, 
 		len_start = s_len_2, len_incr = 0, len_mult = 1, complexity =  1, distrib = 10, dist_incr = 0, dist_mult = 1)
+	"""
 
 	heap_times_m1 = np.array(Sort('.\\tests\\a_ascending_test.txt','.\\tests\\a_ascending_result.txt',
 		algorithm = 'H', captions = False))
@@ -120,22 +122,38 @@ def demonstrate(generate_data = False):
 
 	plt.figure('Inputs comparison')
 
-	plt.subplot(1,2,1)
-	plt.scatter(x, heap_times_m1, s=10, c = 'red',  label = 'almost ascending')
-	plt.scatter(x, heap_times_0, s=10, c = 'green', label = 'fully random')
+	plt.subplot(2,2,1)
+	plt.scatter(x, heap_times_m1,s=10, c = 'red',  label = 'almost ascending')
+	plt.scatter(x, heap_times_0, s=10, c = 'green',label = 'fully random')
 	plt.scatter(x, heap_times_1, s=10, c = 'blue', label = 'almost descending')
 	plt.xlabel('Number of test')
 	plt.ylabel('Time, seconds')
 	plt.title('Binary Heap sorting algorithm')
-
-	plt.subplot(1,2,2)
-	plt.scatter(x, sel_times_m1, s=10, c = 'red',  label = 'almost ascending')
-	plt.scatter(x, sel_times_0, s=10, c = 'green', label = 'fully random')
-	plt.scatter(x, sel_times_1, s=10, c = 'blue', label = 'almost descending')
+	plt.legend(loc=2)
+	
+	plt.subplot(2,2,2)
+	plt.scatter(x, sel_times_m1,s=10, c = 'red',  label = 'almost ascending')
+	plt.scatter(x, sel_times_0,	s=10, c = 'green',label = 'fully random')
+	plt.scatter(x, sel_times_1,	s=10, c = 'blue', label = 'almost descending')
 	plt.xlabel('Number of test')
 	plt.ylabel('Time, seconds')
 	plt.title('Selection sorting algorithm')
 	plt.legend(loc=2)
+
+	plt.subplot(2,2,3)
+	plt.hist(heap_times_m1, bins=15, color = 'red',  label = 'almost ascending', 	alpha = 0.7)
+	plt.hist(heap_times_0,	bins=15, color = 'green',label = 'fully random',	 	alpha = 0.7)
+	plt.hist(heap_times_1,	bins=15, color = 'blue', label = 'almost descending',	alpha = 0.7)
+	plt.xlabel('Time, seconds')
+	plt.ylabel('Number of test')
+	
+	plt.subplot(2,2,4)
+	plt.hist(sel_times_m1,	bins=15, color = 'red',  label = 'almost ascending',  	alpha = 0.5)
+	plt.hist(sel_times_0,	bins=15, color = 'green',label = 'fully random', 	  	alpha = 0.5)
+	plt.hist(sel_times_1,	bins=15, color = 'blue', label = 'almost descending', 	alpha = 0.5)
+	plt.xlabel('Time, seconds')
+	plt.ylabel('Number of test')
+
 	plt.show()
 
 
@@ -144,8 +162,8 @@ def main():
 	''' Main function '''
 
 	# Initial test
-	Sort('.\\tests\\initial_test.txt', '.\\tests\\initial_result.txt', algorithm = 'S', 
-		captions = True, progress_bar = False)
+	#Sort('.\\tests\\initial_test.txt', '.\\tests\\initial_result.txt', algorithm = 'S', 
+	#	captions = True, progress_bar = False)
 
 	# The most important tests are stored in the demonstrate() function
 	demonstrate()
