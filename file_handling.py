@@ -13,7 +13,8 @@ def ReadInputFile(path, separator = None):
 		lists, err_count = [], 0		# Defining the output list and the variable to count misunderstood numbers
 		with open(path,mode='r') as file:	# Opens the input file and reads it line by line
 			for line in file:
-				line = line.replace(",", "").replace(";", "")
+				line = line.replace(", ", " ").replace(",", " ")
+				line = line.replace("; ", " ").replace(";", " ")
 				this_sequence = []
 				for word in line.strip().split(separator):	# Cutting the sequence with the respect to the separator
 					try:
@@ -27,9 +28,9 @@ def ReadInputFile(path, separator = None):
 		else:
 			return -1, err_count 	# File is empty, number of missed numbers/words
 	except FileNotFoundError:
-		return -2					# File is not found
+		return -2, 0				# File is not found
 	except:
-		return -3					# Something else went wrong
+		return -3, 0				# Something else went wrong
 
 
 
