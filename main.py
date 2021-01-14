@@ -180,7 +180,7 @@ def main():
 	''' Main function '''
 
 	# Initial test
-	Sort('.\\tests\\initial_test.txt', '.\\tests\\initial_result.txt', algorithm = 'H', 
+	Sort('.\\tests\\initial_test.txts', '.\\tests\\initial_result.txt', algorithm = 'H', 
 		captions = True, progress_bar = False)
 
 	# The most important tests are stored in the demonstrate() function

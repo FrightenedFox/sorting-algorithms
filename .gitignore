@@ -3,4 +3,4 @@ ideas.md
 
 # Automatic files:
 __pycache__
-tests
+tests/*.txt
