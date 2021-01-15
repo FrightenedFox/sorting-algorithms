@@ -15,10 +15,10 @@ results of the tests.
   
 A detailed explanation of my work can be found in the file `"Sprawozdanie.pdf"` or `"report.docx"`.  
 
-The main file of the program is named `"main.py"`. There you can find some demonstrative tests and comparisons.  
+The main file of the program is named `"main.py"`. There you can find some demo tests and comparisons.  
 In the file `"algorithms.py"` you can find both sorting algorithms.  
 
-There is also a couple of other files, which helps to get everything together:    
+There is also a couple of other files, which help to get everything together:    
  * `"console_handling.py"` - functions to show some useful info in the console;
  * `"file_handling.py"` - reading sequences from & writing them to the file;
  * `"test.py"` - contains everything needed to create a testing sample of input sequences.
@@ -39,7 +39,7 @@ In the folder `Images` all pictures used in the project are saved.
 	Przetwarzanie pliku ".\tests\input_worst_scenario.txt" : [#---------] 10.0%  
 	Przetwarzanie pliku ".\tests\input_worst_scenario.txt" : [##--------] 15.0% `  
 	(repeats instead of changing in one line),  
-	than probably you would like to turn off the progress bar at all. 
+	then probably you would like to turn off the progress bar at all. 
 	To do so, please set the flag `progress_bar` in the function `Sort()` (file `"main.py"`) to `false`. 
 2. If you don't have modules `numpy` and `matplotlib` then, in order to see the plots of the comparisons, you have
 	to install them.  
@@ -55,10 +55,10 @@ The result of the processed work is a program that can:
  - create random input strings or strings with different levels of worst-case/best-case performance;  
  - write out sorted strings to files;  
  - demonstrate the complexity of sorting algorithms;  
- - demonstrate the dependence of the sort time on the structure of the input data.  
+ - demonstrate the dependence of the sorting time on the structure of the input data.  
   
-Flowcharts, pseudocodes and detailed diagrams of the operation of both algorithms, graphs for comparing the time complexity of the algorithms and the dependence of the sort time on the input file were also created.  
+Flowcharts, pseudocodes and detailed diagrams of the operation of both algorithms, graphs for comparing the time complexity of the algorithms and the dependence of the sorting time on the input file were also created.  
   
 ***
   
-![Project logo](/Images/logo.jpg)
+![Project logo](/Images/logo.png)
